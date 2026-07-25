@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "author": "DURKESHWARAN D",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-esp32-devkit-v1", "id": "esp", "top": 0, "left": 0, "attrs": {} },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "pot1",
+      "top": -120,
+      "left": -100,
+      "attrs": { "label": "Simulated Water Flow Sensor" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_green",
+      "top": -80,
+      "left": 120,
+      "attrs": { "color": "green", "label": "Flow OK" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_red",
+      "top": -20,
+      "left": 120,
+      "attrs": { "color": "red", "label": "Flow Stopped / Down" }
+    }
+  ],
+  "connections": [
+    [ "esp:GND.1", "pot1:GND", "black", [ "v0" ] ],
+    [ "esp:3V3", "pot1:VCC", "red", [ "v0" ] ],
+    [ "esp:D34", "pot1:SIG", "green", [ "v0" ] ],
+    [ "esp:D2", "led_green:A", "green", [ "v0" ] ],
+    [ "esp:GND.2", "led_green:C", "black", [ "v0" ] ],
+    [ "esp:D4", "led_red:A", "red", [ "v0" ] ],
+    [ "esp:GND.2", "led_red:C", "black", [ "v0" ] ]
+  ]
+}

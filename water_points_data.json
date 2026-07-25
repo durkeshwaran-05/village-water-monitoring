@@ -1,0 +1,402 @@
+[
+  {
+    "reading_id": "RD-1001",
+    "waterpoint_id": "WP-MDU-01",
+    "habitation": "Melur Rural",
+    "district": "Madurai",
+    "state": "Tamil Nadu",
+    "flow_ok": true,
+    "usage_count": 45,
+    "recorded_at": "2026-07-25T08:00:00Z"
+  },
+  {
+    "reading_id": "RD-1002",
+    "waterpoint_id": "WP-MDU-02",
+    "habitation": "Usilampatti East",
+    "district": "Madurai",
+    "state": "Tamil Nadu",
+    "flow_ok": true,
+    "usage_count": 62,
+    "recorded_at": "2026-07-25T08:05:00Z"
+  },
+  {
+    "reading_id": "RD-1003",
+    "waterpoint_id": "WP-MDU-03",
+    "habitation": "Thirumangalam South",
+    "district": "Madurai",
+    "state": "Tamil Nadu",
+    "flow_ok": false,
+    "usage_count": 0,
+    "recorded_at": "2026-07-20T09:00:00Z"
+  },
+  {
+    "reading_id": "RD-1004",
+    "waterpoint_id": "WP-TRY-01",
+    "habitation": "Kaveri Nagar (Srirangam)",
+    "district": "Tiruchirappalli",
+    "state": "Tamil Nadu",
+    "flow_ok": true,
+    "usage_count": 78,
+    "recorded_at": "2026-07-25T08:10:00Z"
+  },
+  {
+    "reading_id": "RD-1005",
+    "waterpoint_id": "WP-TRY-02",
+    "habitation": "Lalgudi North",
+    "district": "Tiruchirappalli",
+    "state": "Tamil Nadu",
+    "flow_ok": true,
+    "usage_count": 55,
+    "recorded_at": "2026-07-25T08:15:00Z"
+  },
+  {
+    "reading_id": "RD-1006",
+    "waterpoint_id": "WP-DGL-01",
+    "habitation": "Gandhigram Rural",
+    "district": "Dindigul",
+    "state": "Tamil Nadu",
+    "flow_ok": false,
+    "usage_count": 0,
+    "recorded_at": "2026-07-18T10:30:00Z"
+  },
+  {
+    "reading_id": "RD-1007",
+    "waterpoint_id": "WP-DGL-02",
+    "habitation": "Palani Hill Road",
+    "district": "Dindigul",
+    "state": "Tamil Nadu",
+    "flow_ok": true,
+    "usage_count": 91,
+    "recorded_at": "2026-07-25T08:20:00Z"
+  },
+  {
+    "reading_id": "RD-1008",
+    "waterpoint_id": "WP-TNV-01",
+    "habitation": "Ambasamudram West",
+    "district": "Tirunelveli",
+    "state": "Tamil Nadu",
+    "flow_ok": true,
+    "usage_count": 34,
+    "recorded_at": "2026-07-25T08:25:00Z"
+  },
+  {
+    "reading_id": "RD-1009",
+    "waterpoint_id": "WP-TNV-02",
+    "habitation": "Cheranmahadevi Colony",
+    "district": "Tirunelveli",
+    "state": "Tamil Nadu",
+    "flow_ok": false,
+    "usage_count": 0,
+    "recorded_at": "2026-07-22T14:15:00Z"
+  },
+  {
+    "reading_id": "RD-1010",
+    "waterpoint_id": "WP-CBE-01",
+    "habitation": "Pollachi South",
+    "district": "Coimbatore",
+    "state": "Tamil Nadu",
+    "flow_ok": true,
+    "usage_count": 50,
+    "recorded_at": "2026-07-25T08:30:00Z"
+  },
+  {
+    "reading_id": "RD-1011",
+    "waterpoint_id": "WP-ERR-01",
+    "habitation": "Vadipatti North",
+    "district": "Madurai",
+    "state": "Tamil Nadu",
+    "flow_ok": true,
+    "usage_count": null,
+    "recorded_at": "2026-07-25T08:32:00Z"
+  },
+  {
+    "reading_id": "RD-1012",
+    "waterpoint_id": "WP-ERR-02",
+    "habitation": "Kaveri Delta Extension",
+    "district": "Tiruchirappalli",
+    "state": "Tamil Nadu",
+    "flow_ok": true,
+    "usage_count": 999999,
+    "recorded_at": "2026-07-25T08:35:00Z"
+  },
+  {
+    "reading_id": "RD-1013",
+    "waterpoint_id": "WP-ERR-03",
+    "habitation": "Oddanchatram Central",
+    "district": "Dindigul",
+    "state": "Tamil Nadu",
+    "flow_ok": false,
+    "usage_count": 42,
+    "recorded_at": "2026-07-25T08:36:00Z"
+  },
+  {
+    "reading_id": "RD-1014",
+    "waterpoint_id": "WP-ERR-03",
+    "habitation": "Oddanchatram Central",
+    "district": "Dindigul",
+    "state": "Tamil Nadu",
+    "flow_ok": false,
+    "usage_count": 42,
+    "recorded_at": "2026-07-25T08:37:00Z"
+  },
+  {
+    "reading_id": "RD-1015",
+    "waterpoint_id": "WP-ERR-04",
+    "habitation": "",
+    "district": "Tirunelveli",
+    "state": "Tamil Nadu",
+    "flow_ok": true,
+    "usage_count": 28,
+    "recorded_at": "2026-07-25T08:40:00Z"
+  },
+  {
+    "reading_id": "RD-1016",
+    "waterpoint_id": "WP-CUD-01",
+    "habitation": "Neyveli Township",
+    "district": "Cuddalore",
+    "state": "Tamil Nadu",
+    "flow_ok": true,
+    "usage_count": 68,
+    "recorded_at": "2026-07-25T08:45:00Z"
+  },
+  {
+    "reading_id": "RD-1017",
+    "waterpoint_id": "WP-CUD-02",
+    "habitation": "Chidambaram East",
+    "district": "Cuddalore",
+    "state": "Tamil Nadu",
+    "flow_ok": true,
+    "usage_count": 73,
+    "recorded_at": "2026-07-25T08:50:00Z"
+  },
+  {
+    "reading_id": "RD-1018",
+    "waterpoint_id": "WP-THJ-01",
+    "habitation": "Pattukkottai Rural",
+    "district": "Thanjavur",
+    "state": "Tamil Nadu",
+    "flow_ok": false,
+    "usage_count": 0,
+    "recorded_at": "2026-07-15T11:00:00Z"
+  },
+  {
+    "reading_id": "RD-1019",
+    "waterpoint_id": "WP-THJ-02",
+    "habitation": "Kumbakonam South",
+    "district": "Thanjavur",
+    "state": "Tamil Nadu",
+    "flow_ok": true,
+    "usage_count": 82,
+    "recorded_at": "2026-07-25T08:55:00Z"
+  },
+  {
+    "reading_id": "RD-1020",
+    "waterpoint_id": "WP-THJ-03",
+    "habitation": "Thanjavur Fort Ward",
+    "district": "Thanjavur",
+    "state": "Tamil Nadu",
+    "flow_ok": true,
+    "usage_count": 40,
+    "recorded_at": "2026-07-25T09:00:00Z"
+  },
+  {
+    "reading_id": "RD-1021",
+    "waterpoint_id": "WP-THJ-04",
+    "habitation": "Orathanadu West",
+    "district": "Thanjavur",
+    "state": "Tamil Nadu",
+    "flow_ok": true,
+    "usage_count": 52,
+    "recorded_at": "2026-07-25T09:05:00Z"
+  },
+  {
+    "reading_id": "RD-1022",
+    "waterpoint_id": "WP-TNV-03",
+    "habitation": "Valliyur Bypass",
+    "district": "Tirunelveli",
+    "state": "Tamil Nadu",
+    "flow_ok": false,
+    "usage_count": 0,
+    "recorded_at": "2026-07-21T16:20:00Z"
+  },
+  {
+    "reading_id": "RD-1023",
+    "waterpoint_id": "WP-TNV-04",
+    "habitation": "Nanguneri East",
+    "district": "Tirunelveli",
+    "state": "Tamil Nadu",
+    "flow_ok": true,
+    "usage_count": 65,
+    "recorded_at": "2026-07-25T09:10:00Z"
+  },
+  {
+    "reading_id": "RD-1024",
+    "waterpoint_id": "WP-VNR-01",
+    "habitation": "Rajapalayam Town",
+    "district": "Virudhunagar",
+    "state": "Tamil Nadu",
+    "flow_ok": true,
+    "usage_count": 88,
+    "recorded_at": "2026-07-25T09:15:00Z"
+  },
+  {
+    "reading_id": "RD-1025",
+    "waterpoint_id": "WP-VNR-02",
+    "habitation": "Srivilliputhur North",
+    "district": "Virudhunagar",
+    "state": "Tamil Nadu",
+    "flow_ok": true,
+    "usage_count": 49,
+    "recorded_at": "2026-07-25T09:20:00Z"
+  },
+  {
+    "reading_id": "RD-1026",
+    "waterpoint_id": "WP-ERD-01",
+    "habitation": "Bhavani Riverbed",
+    "district": "Erode",
+    "state": "Tamil Nadu",
+    "flow_ok": false,
+    "usage_count": 0,
+    "recorded_at": "2026-07-19T07:45:00Z"
+  },
+  {
+    "reading_id": "RD-1027",
+    "waterpoint_id": "WP-ERD-02",
+    "habitation": "Gobichettipalayam West",
+    "district": "Erode",
+    "state": "Tamil Nadu",
+    "flow_ok": true,
+    "usage_count": 59,
+    "recorded_at": "2026-07-25T09:25:00Z"
+  },
+  {
+    "reading_id": "RD-1028",
+    "waterpoint_id": "WP-CGP-01",
+    "habitation": "Tambaram South",
+    "district": "Chengalpattu",
+    "state": "Tamil Nadu",
+    "flow_ok": true,
+    "usage_count": 71,
+    "recorded_at": "2026-07-25T09:30:00Z"
+  },
+  {
+    "reading_id": "RD-1029",
+    "waterpoint_id": "WP-CGP-02",
+    "habitation": "Mahabalipuram Coastal",
+    "district": "Chengalpattu",
+    "state": "Tamil Nadu",
+    "flow_ok": true,
+    "usage_count": 38,
+    "recorded_at": "2026-07-25T09:35:00Z"
+  },
+  {
+    "reading_id": "RD-1030",
+    "waterpoint_id": "WP-SLM-01",
+    "habitation": "Mettur Dam Colony",
+    "district": "Salem",
+    "state": "Tamil Nadu",
+    "flow_ok": false,
+    "usage_count": 0,
+    "recorded_at": "2026-07-23T12:00:00Z"
+  },
+  {
+    "reading_id": "RD-1031",
+    "waterpoint_id": "WP-SLM-02",
+    "habitation": "Attur Rural",
+    "district": "Salem",
+    "state": "Tamil Nadu",
+    "flow_ok": true,
+    "usage_count": 84,
+    "recorded_at": "2026-07-25T09:40:00Z"
+  },
+  {
+    "reading_id": "RD-1032",
+    "waterpoint_id": "WP-KPM-01",
+    "habitation": "Sriperumbudur East",
+    "district": "Kanchipuram",
+    "state": "Tamil Nadu",
+    "flow_ok": true,
+    "usage_count": 60,
+    "recorded_at": "2026-07-25T09:45:00Z"
+  },
+  {
+    "reading_id": "RD-1033",
+    "waterpoint_id": "WP-KPM-02",
+    "habitation": "Walajabad Central",
+    "district": "Kanchipuram",
+    "state": "Tamil Nadu",
+    "flow_ok": true,
+    "usage_count": 77,
+    "recorded_at": "2026-07-25T09:50:00Z"
+  },
+  {
+    "reading_id": "RD-1034",
+    "waterpoint_id": "WP-MAY-01",
+    "habitation": "Sirkazhi Coastal",
+    "district": "Mayiladuthurai",
+    "state": "Tamil Nadu",
+    "flow_ok": false,
+    "usage_count": 0,
+    "recorded_at": "2026-07-17T09:30:00Z"
+  },
+  {
+    "reading_id": "RD-1035",
+    "waterpoint_id": "WP-MAY-02",
+    "habitation": "Poompuhar Beach Road",
+    "district": "Mayiladuthurai",
+    "state": "Tamil Nadu",
+    "flow_ok": true,
+    "usage_count": 43,
+    "recorded_at": "2026-07-25T09:55:00Z"
+  },
+  {
+    "reading_id": "RD-1036",
+    "waterpoint_id": "WP-TPR-01",
+    "habitation": "Avinashi North",
+    "district": "Tiruppur",
+    "state": "Tamil Nadu",
+    "flow_ok": true,
+    "usage_count": 66,
+    "recorded_at": "2026-07-25T10:00:00Z"
+  },
+  {
+    "reading_id": "RD-1037",
+    "waterpoint_id": "WP-TPR-02",
+    "habitation": "Udumalaipettai South",
+    "district": "Tiruppur",
+    "state": "Tamil Nadu",
+    "flow_ok": true,
+    "usage_count": 58,
+    "recorded_at": "2026-07-25T10:05:00Z"
+  },
+  {
+    "reading_id": "RD-1038",
+    "waterpoint_id": "WP-TNI-01",
+    "habitation": "Bodinayakanur Hills",
+    "district": "Theni",
+    "state": "Tamil Nadu",
+    "flow_ok": false,
+    "usage_count": 0,
+    "recorded_at": "2026-07-24T15:10:00Z"
+  },
+  {
+    "reading_id": "RD-1039",
+    "waterpoint_id": "WP-TNI-02",
+    "habitation": "Periyakulam West",
+    "district": "Theni",
+    "state": "Tamil Nadu",
+    "flow_ok": true,
+    "usage_count": 94,
+    "recorded_at": "2026-07-25T10:10:00Z"
+  },
+  {
+    "reading_id": "RD-1040",
+    "waterpoint_id": "WP-KKI-01",
+    "habitation": "Kanyakumari Port Town",
+    "district": "Kanyakumari",
+    "state": "Tamil Nadu",
+    "flow_ok": true,
+    "usage_count": 51,
+    "recorded_at": "2026-07-25T10:15:00Z"
+  }
+]

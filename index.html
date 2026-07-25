@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIH 2026 — Village Water Point Uptime Monitoring</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="container">
+    <!-- Main Header -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-icon">
+          <i class="fas fa-faucet-drip"></i>
+        </div>
+        <div class="brand-title">
+          <h1>Village Water Point Uptime Monitoring</h1>
+        </div>
+      </div>
+      <button class="contact-us-header-btn" id="contact-us-nav-btn">
+        <i class="fas fa-headset"></i> Contact Us
+      </button>
+    </header>
+
+    <!-- Overall Statistics Row -->
+    <section class="stats-summary-grid">
+      <div class="summary-card">
+        <div class="card-icon blue"><i class="fas fa-tint"></i></div>
+        <div class="summary-info">
+          <h3>Total Water Points</h3>
+          <div class="value" id="stat-total-points">--</div>
+        </div>
+      </div>
+
+      <div class="summary-card">
+        <div class="card-icon green"><i class="fas fa-check-circle"></i></div>
+        <div class="summary-info">
+          <h3>Active & Working</h3>
+          <div class="value" id="stat-active-points" style="color: var(--status-success);">--</div>
+        </div>
+      </div>
+
+      <div class="summary-card">
+        <div class="card-icon red"><i class="fas fa-exclamation-triangle"></i></div>
+        <div class="summary-info">
+          <h3>Out of Service</h3>
+          <div class="value" id="stat-stopped-points" style="color: var(--status-danger);">--</div>
+        </div>
+      </div>
+
+      <div class="summary-card">
+        <div class="card-icon amber"><i class="fas fa-bug"></i></div>
+        <div class="summary-info">
+          <h3>Faulty / Invalid Sensor</h3>
+          <div class="value" id="stat-faulty-points" style="color: var(--status-warning);">--</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Task 2: Search & Filter Control Bar -->
+    <section class="control-bar">
+      <div class="search-filter-group">
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" id="search-input" class="search-input" placeholder="Search by Waterpoint ID, Habitation, Reading ID...">
+        </div>
+
+        <select id="status-filter" class="filter-select">
+          <option value="all">All Statuses</option>
+          <option value="working">Working / Normal Flow</option>
+          <option value="stopped">Stopped / Out of Service</option>
+          <option value="faulty">Faulty / Invalid Sensor Data</option>
+        </select>
+
+        <select id="habitation-filter" class="filter-select">
+          <option value="all">All Habitations</option>
+        </select>
+      </div>
+
+      <div class="record-count-badge">
+        Showing <span class="highlight" id="displayed-count">0</span> of <span id="total-count">0</span> records
+      </div>
+    </section>
+
+    <!-- Water Points Grid View -->
+    <main class="waterpoints-grid" id="waterpoints-grid">
+      <!-- Cards rendered dynamically via app.js -->
+    </main>
+  </div>
+
+  <!-- Task 3: Detail & Summary View Modal -->
+  <div class="modal-overlay" id="detail-modal">
+    <div class="modal-card">
+      <button class="modal-close-btn" id="modal-close-btn">&times;</button>
+      
+      <!-- Top Prominent Derived Figure Banner -->
+      <div class="derived-banner" id="derived-banner">
+        <h4 id="derived-title">Derived Metrics Overview</h4>
+        <div class="derived-metric-value" id="derived-metric-val">--</div>
+        <div class="derived-metric-subtext" id="derived-metric-sub">--</div>
+      </div>
+
+      <!-- Edge Case Warning Alert (if applicable) -->
+      <div class="alert-banner warning hidden" id="alert-banner">
+        <i class="fas fa-exclamation-circle" style="font-size: 1.2rem; margin-top: 2px;"></i>
+        <div>
+          <strong id="alert-title">Sensor Anomaly Detected</strong>
+          <p id="alert-desc" style="margin-top: 2px;">This water point contains an invalid or stuck reading that requires field inspection.</p>
+        </div>
+      </div>
+
+      <!-- Specification Details Grid -->
+      <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 14px; color: var(--text-main);">
+        <i class="fas fa-info-circle" style="color: var(--accent-blue);"></i> Water Point Telemetry Data
+      </h3>
+
+      <div class="detail-spec-grid">
+        <div class="spec-box">
+          <label>Reading ID</label>
+          <span id="detail-reading-id">--</span>
+        </div>
+        <div class="spec-box">
+          <label>Waterpoint ID</label>
+          <span id="detail-wp-id">--</span>
+        </div>
+        <div class="spec-box">
+          <label>Habitation / Village</label>
+          <span id="detail-habitation">--</span>
+        </div>
+        <div class="spec-box">
+          <label>Flow Sensor Status</label>
+          <span id="detail-flow-status">--</span>
+        </div>
+        <div class="spec-box">
+          <label>Raw Usage Count</label>
+          <span id="detail-usage-count">--</span>
+        </div>
+        <div class="spec-box">
+          <label>Last Telemetry Timestamp</label>
+          <span id="detail-recorded-at">--</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Us Modal Overlay -->
+  <div class="modal-overlay" id="contact-modal">
+    <div class="modal-card" style="max-width: 580px;">
+      <button class="modal-close-btn" id="contact-modal-close-btn">&times;</button>
+      
+      <div class="contact-header" style="margin-bottom: 20px;">
+        <h2 style="font-size: 1.3rem;"><i class="fas fa-headset"></i> Contact Us</h2>
+        <p>Submit water point telemetry issue or message to maintenance officers</p>
+      </div>
+
+      <form class="contact-form" id="modal-contact-form">
+        <div class="form-group">
+          <label for="modal-contact-name"><i class="fas fa-user"></i> Name :</label>
+          <input type="text" id="modal-contact-name" class="form-input" placeholder="Enter your name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="modal-contact-email"><i class="fas fa-envelope"></i> Email :</label>
+          <input type="email" id="modal-contact-email" class="form-input" placeholder="Enter your email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="modal-contact-phone"><i class="fas fa-phone"></i> Contact :</label>
+          <input type="tel" id="modal-contact-phone" class="form-input" placeholder="Enter your contact number" required>
+        </div>
+
+        <div class="form-group full-width">
+          <label for="modal-contact-issue"><i class="fas fa-comment-alt"></i> tell issue :</label>
+          <textarea id="modal-contact-issue" class="form-textarea" rows="5" placeholder="Write your issue details here..." required></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="contact-submit-btn">
+            <i class="fas fa-paper-plane"></i> Submit Issue
+          </button>
+        </div>
+      </form>
+
+      <div class="form-success-msg hidden" id="modal-contact-success-msg">
+        <i class="fas fa-check-circle" style="font-size: 1.5rem; color: var(--status-success);"></i>
+        <div>
+          <strong>Issue Submitted Successfully!</strong>
+          <p>Thank you. Your report has been dispatched to maintenance engineers.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
