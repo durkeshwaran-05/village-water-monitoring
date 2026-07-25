@@ -92,10 +92,10 @@ village-water-monitoring/
    $$\text{Downtime Days} = \left\lfloor \frac{\text{Current Timestamp} - \text{Recorded Timestamp}}{86,400,000 \text{ ms}} \right\rfloor$$
 
 2. **Total Water Delivered Volume**:
-   $$\text{Total Water Volume (L)} = \sum_{i=1}^{N} \text{usage\_count}_i \quad \text{where } 0 \le \text{usage\_count}_i \le 1000$$
+   $$\text{Total Water Volume (L)} = \sum_{i=1}^{N} \text{usage}_i \quad \text{where } 0 \le \text{usage}_i \le 1000$$
 
 3. **Panchayat Overall Uptime Ratio (%)**:
-   $$\text{Overall Uptime \%} = \left( \frac{\text{Count of Active Points}}{\text{Total Water Points}} \right) \times 100$$
+   $$\text{Overall Uptime Ratio} = \left( \frac{\text{Count of Active Points}}{\text{Total Water Points}} \right) \times 100$$
 
 ---
 
