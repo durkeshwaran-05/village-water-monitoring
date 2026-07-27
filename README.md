@@ -98,7 +98,7 @@ village-water-monitoring/
    $$\text{Overall Uptime Ratio} = \left( \frac{\text{Count of Active Points}}{\text{Total Water Points}} \right) \times 100$$
 
 ---
-
+Demo video : https://drive.google.com/drive/u/0/mobile/folders/1rUFAYHi-CmXaVpVlET3J9lIdkbm4bj8W?sort=13&direction=a
 ## 7. Author Information & Contact
 
 - **Student Name:** DURKESHWARAN D
