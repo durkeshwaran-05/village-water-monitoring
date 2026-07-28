@@ -46,11 +46,142 @@ document.addEventListener('DOMContentLoaded', () => {
       populateHabitationFilter();
       calculateOverallSummaryStats();
       applyFilters();
+      initOnSpotChangesSimulator();
 
     } catch (err) {
       console.error('Error loading dataset:', err);
       renderErrorState('Failed to load water point usage data. Please verify water_points_data.json file location.');
     }
+  }
+
+  /* ============================================================
+     SIH 2026 Level 2: On-Spot Changes Logic Engine
+     ============================================================ */
+  function initOnSpotChangesSimulator() {
+    const simSlider = document.getElementById('sim-input-slider');
+    const simRawVal = document.getElementById('sim-raw-val');
+    const simMovingAvg = document.getElementById('sim-moving-avg');
+    const simDeltaVal = document.getElementById('sim-delta-val');
+
+    const consecutiveCountLabel = document.getElementById('consecutive-count-label');
+    const debounceProgress = document.getElementById('debounce-progress');
+    const alarmStateBox = document.getElementById('alarm-state-box');
+    const alarmIcon = document.getElementById('alarm-icon');
+    const alarmTitleText = document.getElementById('alarm-title-text');
+    const alarmDescText = document.getElementById('alarm-desc-text');
+
+    const btnSpike = document.getElementById('btn-spike');
+    const btnSustained = document.getElementById('btn-sustained');
+    const btnResetSim = document.getElementById('btn-reset-sim');
+
+    if (!simSlider) return; // Guard if elements aren't present
+
+    // State Variables
+    const CONSECUTIVE_THRESHOLD = 3;
+    let movingAvgBuffer = [45, 45, 45, 45, 45]; // 5-Sample buffer
+    let consecutiveFaultCount = 0;
+    let sustainedTimer = null;
+
+    function updateSimulation(rawInputVal) {
+      const rawInput = parseFloat(rawInputVal);
+
+      // Change 1: Update 5-sample moving average and flow difference (Delta)
+      movingAvgBuffer.shift();
+      movingAvgBuffer.push(rawInput);
+      const avg = movingAvgBuffer.reduce((sum, val) => sum + val, 0) / movingAvgBuffer.length;
+      const delta = rawInput - avg;
+
+      // Update Change 1 UI
+      simSlider.value = rawInput;
+      simRawVal.textContent = `${rawInput.toFixed(0)} L/min`;
+      simMovingAvg.textContent = `${avg.toFixed(1)} L/min`;
+      
+      const deltaFormatted = `${delta >= 0 ? '+' : ''}${delta.toFixed(1)} L/min`;
+      simDeltaVal.textContent = deltaFormatted;
+      simDeltaVal.className = 'metric-value ' + (Math.abs(delta) < 0.1 ? 'highlight' : (delta > 0 ? 'positive' : 'negative'));
+
+      // Change 2: Consecutive Anomaly Reading Alarm Debounce Check
+      // Condition for abnormal reading: Flow rate > 100 L/min (Spike) or 0 L/min (Stopped)
+      const isAbnormal = (rawInput > 100 || rawInput === 0);
+
+      if (isAbnormal) {
+        consecutiveFaultCount = Math.min(CONSECUTIVE_THRESHOLD, consecutiveFaultCount + 1);
+      } else {
+        consecutiveFaultCount = 0; // Reset counter on valid normal reading
+      }
+
+      // Update Change 2 UI
+      consecutiveCountLabel.textContent = `${consecutiveFaultCount} / ${CONSECUTIVE_THRESHOLD} Readings`;
+      debounceProgress.style.width = `${(consecutiveFaultCount / CONSECUTIVE_THRESHOLD) * 100}%`;
+
+      if (consecutiveFaultCount === 0) {
+        // Normal State
+        alarmStateBox.className = 'alarm-output-box normal';
+        alarmIcon.className = 'fas fa-check-circle alarm-icon';
+        alarmTitleText.textContent = 'SYSTEM NORMAL — ALARM CLEAR';
+        alarmDescText.textContent = `Flow input (${rawInput.toFixed(0)} L/min) is within safe operational limits. Spikes will be debounced.`;
+      } else if (consecutiveFaultCount < CONSECUTIVE_THRESHOLD) {
+        // Suppressed One-Off Spike State
+        alarmStateBox.className = 'alarm-output-box suppressed';
+        alarmIcon.className = 'fas fa-shield-alt alarm-icon';
+        alarmTitleText.textContent = `⚠️ ONE-OFF SPIKE DETECTED (${consecutiveFaultCount}/${CONSECUTIVE_THRESHOLD}) — ALARM SUPPRESSED`;
+        alarmDescText.textContent = `Single odd reading (${rawInput.toFixed(0)} L/min) detected! Must persist for ${CONSECUTIVE_THRESHOLD} consecutive readings. Alarm held.`;
+      } else {
+        // Sustained Alarm Fired State
+        alarmStateBox.className = 'alarm-output-box fired';
+        alarmIcon.className = 'fas fa-exclamation-triangle alarm-icon';
+        alarmTitleText.textContent = `🚨 SUSTAINED FAULT ALARM FIRED! (${consecutiveFaultCount}/${CONSECUTIVE_THRESHOLD})`;
+        alarmDescText.textContent = `Abnormal condition stayed true for ${CONSECUTIVE_THRESHOLD} readings in a row! Maintenance dispatch alert triggered.`;
+      }
+    }
+
+    // Slider Event Listener
+    simSlider.addEventListener('input', (e) => {
+      if (sustainedTimer) clearInterval(sustainedTimer);
+      updateSimulation(e.target.value);
+    });
+
+    // Test 1: One-Off Spike Button (Inject 1 bad reading, then return to normal)
+    btnSpike.addEventListener('click', () => {
+      if (sustainedTimer) clearInterval(sustainedTimer);
+      
+      // Step 1: Inject 1-off out-of-range spike reading
+      updateSimulation(115);
+
+      // Step 2: After 1.8 seconds, return to normal reading (proving spike was suppressed and ignored)
+      setTimeout(() => {
+        updateSimulation(45);
+      }, 1800);
+    });
+
+    // Test 2: Sustained Fault Button (Inject 3 consecutive bad readings)
+    btnSustained.addEventListener('click', () => {
+      if (sustainedTimer) clearInterval(sustainedTimer);
+      
+      let step = 0;
+      updateSimulation(115); // Tick 1 (1/3)
+      step++;
+
+      sustainedTimer = setInterval(() => {
+        if (step < 3) {
+          updateSimulation(115); // Tick 2 (2/3), Tick 3 (3/3)
+          step++;
+        } else {
+          clearInterval(sustainedTimer);
+        }
+      }, 900);
+    });
+
+    // Reset Button
+    btnResetSim.addEventListener('click', () => {
+      if (sustainedTimer) clearInterval(sustainedTimer);
+      movingAvgBuffer = [45, 45, 45, 45, 45];
+      consecutiveFaultCount = 0;
+      updateSimulation(45);
+    });
+
+    // Initial render of simulator state
+    updateSimulation(45);
   }
 
   // Helper: Classify Record Health & Status

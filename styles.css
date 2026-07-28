@@ -775,3 +775,313 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+/* ============================================================
+   SIH 2026 Level 2: On-Spot Changes UI Styling
+   ============================================================ */
+.onspot-section {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin-bottom: 28px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.onspot-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.onspot-title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.onspot-badge {
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.onspot-title-group h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #f8fafc;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.onspot-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 900px) {
+  .onspot-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.onspot-card {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.onspot-card-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #38bdf8;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.onspot-card-tag {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.onspot-card-tag.harder {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+}
+
+.sim-control-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sim-slider-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sim-slider-row input[type="range"] {
+  flex: 1;
+  accent-color: var(--accent-blue);
+  height: 6px;
+  border-radius: 3px;
+  background: #334155;
+  cursor: pointer;
+}
+
+.sim-val-pill {
+  background: #334155;
+  color: #f8fafc;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: 0.9rem;
+  min-width: 70px;
+  text-align: center;
+}
+
+.internal-metrics-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.internal-metric-box {
+  background: rgba(30, 41, 59, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  text-align: center;
+}
+
+.internal-metric-box label {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.internal-metric-box .metric-value {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #f8fafc;
+  transition: all 0.2s ease;
+}
+
+.internal-metric-box .metric-value.highlight {
+  color: var(--accent-blue);
+}
+
+.internal-metric-box .metric-value.positive {
+  color: var(--status-success);
+}
+
+.internal-metric-box .metric-value.negative {
+  color: var(--status-danger);
+}
+
+/* Change 2 Alert Debounce Styles */
+.debounce-counter-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.debounce-counter-bar {
+  height: 10px;
+  background: #334155;
+  border-radius: 5px;
+  overflow: hidden;
+  display: flex;
+}
+
+.debounce-counter-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #f59e0b, #ef4444);
+  transition: width 0.3s ease;
+}
+
+.debounce-step-ticks {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.debounce-step-ticks span.active {
+  color: #fbbf24;
+}
+
+.alarm-output-box {
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.3s ease;
+  background: rgba(30, 41, 59, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.alarm-output-box.normal {
+  background: rgba(16, 185, 129, 0.1);
+  border-color: rgba(16, 185, 129, 0.3);
+  color: #34d399;
+}
+
+.alarm-output-box.suppressed {
+  background: rgba(245, 158, 11, 0.15);
+  border-color: rgba(245, 158, 11, 0.4);
+  color: #fbbf24;
+}
+
+.alarm-output-box.fired {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: rgba(239, 68, 68, 0.6);
+  color: #f87171;
+  animation: pulseDanger 1.5s infinite;
+}
+
+@keyframes pulseDanger {
+  0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+
+.alarm-output-box .alarm-icon {
+  font-size: 1.6rem;
+}
+
+.alarm-output-text strong {
+  display: block;
+  font-size: 0.9rem;
+}
+
+.alarm-output-text p {
+  font-size: 0.8rem;
+  margin-top: 2px;
+  opacity: 0.9;
+}
+
+.test-btn-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.sim-btn {
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.sim-btn.spike {
+  background: rgba(245, 158, 11, 0.2);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+}
+
+.sim-btn.spike:hover {
+  background: rgba(245, 158, 11, 0.35);
+  transform: translateY(-1px);
+}
+
+.sim-btn.sustained {
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
+.sim-btn.sustained:hover {
+  background: rgba(239, 68, 68, 0.35);
+  transform: translateY(-1px);
+}
+
+.sim-btn.reset {
+  background: rgba(148, 163, 184, 0.15);
+  color: #cbd5e1;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+.sim-btn.reset:hover {
+  background: rgba(148, 163, 184, 0.25);
+  transform: translateY(-1px);
+}
+

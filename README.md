@@ -16,12 +16,32 @@ This telemetry dashboard system automatically monitors water flow at village poi
 
 ## 2. Key Features
 
-- **Tamil Nadu Telemetry Dataset**: 40 telemetry data records across 16 major districts of Tamil Nadu (Madurai, Tiruchirappalli, Dindigul, Tirunelveli, Coimbatore, Thanjavur, Salem, Erode, etc.).
-- **Real-Time Instant Search & Filter**: Search instantaneously by Waterpoint ID, Habitation, District, State (`Tamil Nadu`), or Reading ID.
+- **Chennai Telemetry Dataset**: 40 telemetry data records across Chennai district zones and habitations (Adyar, Velachery, T. Nagar, Anna Nagar, Guindy, Mylapore, Tambaram, Porur, Ambattur, Saidapet, etc.).
+- **Real-Time Instant Search & Filter**: Search instantaneously by Waterpoint ID, Habitation, District (`Chennai`), State (`Tamil Nadu`), or Reading ID.
 - **Edge Case & Fault Classification**: Automatically detects and flags missing sensor telemetry, out-of-range spikes (>1000 L), stuck hardware sensors, and unassigned habitations.
 - **Prominent Derived Figures**: Displays downtime duration (Days Out of Service), total water delivered, and overall Panchayat uptime percentage.
 - **Interactive Contact Us Modal**: Integrated popup form for citizens and field technicians to report broken water points with input fields (`Name :`, `Email :`, `Contact :`, `tell issue :`).
-- **ESP32 Firmware Node Simulation**: Complete C++ firmware (`esp32_sensor_node.ino`) for ESP32 microcontrollers featuring non-blocking `millis()` sampling, a 5-sample moving average filter, and plausibility boundary checks (<100 L/min).
+- **SIH 2026 Level 2 On-Spot Changes**:
+  - **Change 1 (8 Marks)**: Dynamic calculated internal values display (5-sample Moving Average & Flow Difference Delta).
+  - **Change 2 (12 Marks)**: Consecutive anomaly reading alarm debouncing (requires 3 consecutive bad readings before firing the alarm; single odd spikes are suppressed and ignored).
+
+---
+
+## 2.1. SIH 2026 Level 2 — On-Spot Changes Implemented
+
+### Change 1 — Live Internal Computed Values (8 Marks)
+- **Problem**: Screen only displays raw telemetry input without showing internal calculations.
+- **Solution**: Evaluates and prints internal computed metrics in real time:
+  1. **5-Sample Moving Average**: $\text{Moving Avg} = \frac{1}{5} \sum_{i=1}^5 \text{Sample}_i$
+  2. **Flow Difference Delta**: $\Delta = \text{Raw Input} - \text{Moving Avg}$
+- **Verification**: Drag the simulated sensor potentiometer input slider on the dashboard or change Wokwi input. Observe the internal moving average and difference delta values dynamically recalculate and display live.
+
+### Change 2 — Consecutive Reading Alarm Debounce (12 Marks)
+- **Problem**: A single odd reading or random transient noise spike triggers false alarms.
+- **Solution**: Debounces the alarm condition by tracking a consecutive anomaly counter (`CONSECUTIVE_THRESHOLD = 3`).
+  - **Single Spike Ignored**: A single bad reading (1/3) displays `⚠️ ONE-OFF SPIKE DETECTED — ALARM SUPPRESSED`. Once the reading returns to normal, the counter resets without ever triggering the alarm.
+  - **Sustained Change Fired**: When an anomaly persists for 3 consecutive readings (1/3 → 2/3 → 3/3), the alarm fires (`🚨 SUSTAINED FAULT ALARM FIRED`).
+- **Verification**: Click **`Test 1-Off Spike`** to verify single noise spike suppression. Click **`Test Sustained Fault`** to verify alarm triggering after 3 consecutive bad readings.
 
 ---
 
@@ -46,7 +66,7 @@ village-water-monitoring/
 ### Web Dashboard
 1. Open the project root directory in any web browser or local web server (`http://localhost` or double-click `index.html`).
 2. The dashboard automatically fetches `water_points_data.json` and renders all 40 Tamil Nadu water point records.
-3. **Search**: Type in the search bar (e.g., `Madurai`, `Tiruchirappalli`, `WP-MDU-01`, `RD-1003`) to filter records instantly on keypress.
+3. **Search**: Type in the search bar (e.g., `Chennai`, `Adyar`, `WP-CHN-01`, `RD-1003`) to filter records instantly on keypress.
 4. **Filter**: Select status filters (`Working`, `Stopped`, `Faulty`) or habitation dropdowns. Observe the live record counter badge (`Showing X of 40 records`).
 5. **Detail Modal**: Click any card to open the detail view featuring prominent top derived metrics (e.g. Days Out of Service, Total Litres, or Hardware Fault Alerts).
 6. **Contact Us**: Click the **`Contact Us`** button at the top-right header to report broken taps directly to Panchayat maintenance officers.
@@ -98,7 +118,7 @@ village-water-monitoring/
    $$\text{Overall Uptime Ratio} = \left( \frac{\text{Count of Active Points}}{\text{Total Water Points}} \right) \times 100$$
 
 ---
-Demo video : https://drive.google.com/drive/u/0/mobile/folders/1rUFAYHi-CmXaVpVlET3J9lIdkbm4bj8W?sort=13&direction=a
+
 ## 7. Author Information & Contact
 
 - **Student Name:** DURKESHWARAN D

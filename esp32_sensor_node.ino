@@ -30,6 +30,10 @@ int validSampleCount = 0;
 const float MIN_PLAUSIBLE_FLOW = 0.0;    // Min valid L/min
 const float MAX_PLAUSIBLE_FLOW = 100.0;  // Max valid L/min (rejects spikes > 100 L/min)
 
+// SIH 2026 Level 2: Change 2 Debounce Counter State
+const int CONSECUTIVE_FAULT_THRESHOLD = 3; // Must stay true for 3 consecutive readings
+int consecutiveFaultCounter = 0;
+
 // Telemetry Counters
 unsigned int readingSequenceId = 1001;
 
@@ -53,9 +57,9 @@ void setup() {
 
   Serial.println("=================================================");
   Serial.println(" SIH 2026 — ESP32 Water Point Sensing Node Started");
-  Serial.println(" Non-blocking millis() timer active (Interval: 2000ms)");
-  Serial.println(" Plausibility boundary: 0.0 - 100.0 L/min");
-  Serial.println(" Moving Average Filter Window: 5 Samples");
+  Serial.println(" TELEMETRY & ALARM FILTERING ENGINE ACTIVE:");
+  Serial.println(" - 5-Sample Moving Average & Delta Calculation");
+  Serial.println(" - 3-Sample Consecutive Alarm Debounce Filter");
   Serial.println("=================================================");
 }
 
@@ -69,29 +73,58 @@ void loop() {
     // 1. Read Raw Flow Sensor Simulation
     float rawFlowRate = readRawFlowSensor();
 
-    // 2. Task 4 Core: Apply Plausibility Check (Reject impossible values)
-    if (!applyPlausibilityCheck(rawFlowRate)) {
-      Serial.print("[PLAUSIBILITY REJECTED] Out-of-range spike detected: ");
-      Serial.print(rawFlowRate);
-      Serial.println(" L/min. Ignored by filter!");
-      return; // Reject reading without updating filter or sending false alarm
+    // 2. Calculate internal values (5-sample Moving Avg & Difference Delta)
+    float smoothedFlowRate = computeMovingAverage(rawFlowRate);
+    float flowDelta = rawFlowRate - smoothedFlowRate;
+
+    // Print computed values explicitly to Serial
+    Serial.print("[TELEMETRY METRICS] Raw: ");
+    Serial.print(rawFlowRate, 1);
+    Serial.print(" L/min | 5-Sample Avg: ");
+    Serial.print(smoothedFlowRate, 1);
+    Serial.print(" L/min | Delta: ");
+    if (flowDelta >= 0) Serial.print("+");
+    Serial.print(flowDelta, 1);
+    Serial.println(" L/min");
+
+    // 3. Alarm Debouncing (Requires 3 consecutive abnormal readings)
+    bool isRawAbnormal = (rawFlowRate > MAX_PLAUSIBLE_FLOW || rawFlowRate < 2.0);
+
+    if (isRawAbnormal) {
+      consecutiveFaultCounter++;
+      
+      if (consecutiveFaultCounter < CONSECUTIVE_FAULT_THRESHOLD) {
+        // Single or 2-off spike ignored, alarm suppressed!
+        digitalWrite(STATUS_LED_GREEN, HIGH);
+        digitalWrite(STATUS_LED_RED, LOW); // Red alarm LED stays OFF
+        
+        Serial.print("[ALARM SUPPRESSED] One-off anomaly count: ");
+        Serial.print(consecutiveFaultCounter);
+        Serial.println("/3. Single spike ignored - alarm suppressed!");
+      } else {
+        // Sustained change true for 3 consecutive readings: FIRE ALARM!
+        digitalWrite(STATUS_LED_GREEN, LOW);
+        digitalWrite(STATUS_LED_RED, HIGH); // Red alarm LED fires!
+        
+        Serial.print("🚨 [ALARM FIRED] Sustained anomaly detected for ");
+        Serial.print(consecutiveFaultCounter);
+        Serial.println(" consecutive readings! Alarm triggered!");
+      }
+    } else {
+      // Reading returned to normal: Reset consecutive fault counter!
+      consecutiveFaultCounter = 0;
+      digitalWrite(STATUS_LED_GREEN, HIGH);
+      digitalWrite(STATUS_LED_RED, LOW);
     }
 
-    // 3. Task 4 Core: Apply Moving Average Smoothing Filter
-    float smoothedFlowRate = computeMovingAverage(rawFlowRate);
-
-    // Determine Flow Status (Flow active if > 2.0 L/min)
+    // Determine Flow Status for JSON telemetry
     bool isFlowOk = (smoothedFlowRate > 2.0);
-
-    // Update Status LEDs
-    digitalWrite(STATUS_LED_GREEN, isFlowOk ? HIGH : LOW);
-    digitalWrite(STATUS_LED_RED, isFlowOk ? LOW : HIGH);
 
     // 4. Output Serial JSON matching exact dataset schema
     transmitSerialTelemetryJSON(smoothedFlowRate, isFlowOk);
   }
 
-  // Other non-blocking background tasks (e.g. WiFi / BLE) can run freely here
+  // Other non-blocking background tasks can run freely here
 }
 
 // -------------------------------------------------------------
@@ -139,7 +172,7 @@ void transmitSerialTelemetryJSON(float smoothedFlow, bool flowOk) {
   
   Serial.print("{\"reading_id\":\"RD-SIM-");
   Serial.print(readingSequenceId);
-  Serial.print("\",\"waterpoint_id\":\"WP-MDU-01\",\"habitation\":\"Melur Rural\",\"district\":\"Madurai\",\"state\":\"Tamil Nadu\",\"flow_ok\":");
+  Serial.print("\",\"waterpoint_id\":\"WP-CHN-01\",\"habitation\":\"Adyar West\",\"district\":\"Chennai\",\"state\":\"Tamil Nadu\",\"flow_ok\":");
   Serial.print(flowOk ? "true" : "false");
   Serial.print(",\"usage_count\":");
   Serial.print((int)smoothedFlow);
